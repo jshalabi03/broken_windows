@@ -1,0 +1,38 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Tiles/Grass.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// Taken and edited from https://github.com/godotengine/godot/issues/19800
+
+uniform vec4 primary_color: hint_color = vec4(0.23, 0.55, 0.33, 1.0);
+uniform vec4 secondary_color: hint_color = vec4(0.16, 0.35, 0.15, 1.0);
+uniform vec2 texture_scale = vec2(0.5);
+uniform sampler2D tex;
+uniform mat4 global_transform;
+
+varying vec2 world_pos;
+
+void vertex(){
+    world_pos = (global_transform * vec4(VERTEX, 0.0, 1.0)).xy;
+}
+
+void fragment() {
+	vec4 noise = texture(tex, world_pos * texture_scale);
+	//noise.r *= 1.1;
+	float r = noise.r;//mix(primary_color.r, secondary_color.r, noise.r);
+	float g = noise.g;//mix(primary_color.g, secondary_color.g, noise.r);
+	float b = noise.b;//mix(primary_color.b, secondary_color.b, noise.r);
+	
+	COLOR = vec4(r, g, b, 1.0);
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/primary_color = Color( 0.23, 0.55, 0.33, 1 )
+shader_param/secondary_color = Color( 0.16, 0.35, 0.15, 1 )
+shader_param/texture_scale = Vector2( 0.05, 0.05 )
+shader_param/global_transform = null
+shader_param/tex = ExtResource( 1 )

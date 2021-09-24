@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Game/PlayerSprite.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Images/PlayerSpriteFrame.tres" type="SpriteFrames" id=2]
+
+[node name="Player1" type="AnimatedSprite"]
+frames = ExtResource( 2 )
+centered = false
+script = ExtResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="move_completed" from="." to="." method="_on_Player1_move_completed"]

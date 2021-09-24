@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float GRAY_AMOUNT = 0.6;
+uniform float VALUE = 0.56;
+
+void fragment(){
+	vec4 c = texture(TEXTURE, UV);
+	
+	// Get grayscale
+	vec3 gray = vec3(length(c.rgb));
+	
+	// Mix normal and grayscale
+	vec3 wilted = mix(c.rgb, gray, GRAY_AMOUNT) * VALUE;
+	COLOR = vec4(wilted, c.a);
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/GRAY_AMOUNT = 0.6
+shader_param/VALUE = 0.56
