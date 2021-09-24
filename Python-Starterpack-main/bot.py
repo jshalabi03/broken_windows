@@ -122,6 +122,8 @@ def main():
     """
     game = Game(ItemType.COFFEE_THERMOS, UpgradeType.SCYTHE)
 
+    logger.debug("hello")
+
     while (True):
         try:
             game.update_game()
